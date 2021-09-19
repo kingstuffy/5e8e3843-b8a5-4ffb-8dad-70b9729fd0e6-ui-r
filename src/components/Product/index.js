@@ -7,7 +7,9 @@ import styles from './index.module.css';
 const Product = ({product, onAddReview}) => {
   return (
     <div>
-      <h1 className={classnames(styles.title, 'text-xxl font-bold')}>
+      <h1
+        data-cy="product-name"
+        className={classnames(styles.title, 'text-xxl font-bold')}>
         {product.name}
       </h1>
       <div
@@ -16,14 +18,18 @@ const Product = ({product, onAddReview}) => {
           'flex items-center justify-between',
         )}>
         <div className={classnames(styles.ratings, 'flex items-center')}>
-          <div className={classnames(styles.avgRating, 'text-xxl')}>
+          <div
+            className={classnames(styles.avgRating, 'text-xxl')}
+            data-cy="product-average-rating">
             {product.averageRating}
           </div>
           <div>
             <Ratings value={product.averageRating} />
           </div>
         </div>
-        <PrimaryButton onClick={onAddReview}>Add review</PrimaryButton>
+        <PrimaryButton data-cy="open-review-modal-button" onClick={onAddReview}>
+          Add review
+        </PrimaryButton>
       </div>
     </div>
   );

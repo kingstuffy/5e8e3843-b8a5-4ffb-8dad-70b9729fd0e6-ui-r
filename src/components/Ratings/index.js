@@ -13,13 +13,7 @@ const getRatingValue = (e, rating) => {
   return rating - halfRating;
 };
 
-const RatingButton = ({
-  rating,
-  bgIcon,
-  isActive,
-  onMouseOver,
-  onClick,
-}) => {
+const RatingButton = ({rating, bgIcon, isActive, onMouseOver, onClick}) => {
   const handleMouseMove = useMemo(
     () =>
       throttle((e) => {
@@ -41,6 +35,7 @@ const RatingButton = ({
     <button
       key={rating}
       type="button"
+      data-cy={isActive ? `ratings-button-${rating}` : null}
       className={styles.btn}
       onClick={isActive ? handleClick : null}
       onMouseMove={isActive ? handleMouseMove : null}
@@ -49,13 +44,7 @@ const RatingButton = ({
   );
 };
 
-const RatingButtons = ({
-  ratings,
-  bgIcon,
-  isActive,
-  onMouseOver,
-  onClick,
-}) =>
+const RatingButtons = ({ratings, bgIcon, isActive, onMouseOver, onClick}) =>
   ratings.map((rating) => (
     <RatingButton
       key={rating}

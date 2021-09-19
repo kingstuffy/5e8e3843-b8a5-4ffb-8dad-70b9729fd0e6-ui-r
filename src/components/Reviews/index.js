@@ -11,13 +11,19 @@ const Reviews = ({reviews}) => {
         {reviews.map((review) => (
           <li
             key={review.id}
-            className={classnames(styles.item, 'flex items-center')}>
+            className={classnames(styles.item, 'flex items-center')}
+            data-cy={`review-item-${review.id}`}>
             <div className={styles.stars}>
               <Ratings value={review.rating} />
             </div>
             <div className={classnames(styles.summary, 'flex items-center')}>
-              <div className={styles.ratingNum}>{review.rating}</div>,
-              <div className={styles.ratingText}>{review.text}</div>
+              <div className={styles.ratingNum} data-cy="review-rating">
+                {review.rating}
+              </div>
+              ,
+              <div className={styles.ratingText} data-cy="review-text">
+                {review.text}
+              </div>
             </div>
           </li>
         ))}

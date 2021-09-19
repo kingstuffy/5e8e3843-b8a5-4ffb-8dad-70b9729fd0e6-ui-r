@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import toast from 'react-hot-toast';
 import PrimaryButton from 'components/PrimaryButton';
 import Ratings from 'components/Ratings';
 import closeIcon from 'icons/close.svg';
 import styles from './index.module.css';
-import { addReview } from 'services/reviews';
+import {addReview} from 'services/reviews';
 
-const ReviewModal = ({ onClose, onNewRating, productId }) => {
+const ReviewModal = ({onClose, onNewRating, productId}) => {
   const [rating, setRatings] = useState(0);
   const [text, setText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,16 +29,16 @@ const ReviewModal = ({ onClose, onNewRating, productId }) => {
 
       try {
         setIsSubmitting(true);
-        const { message, data } = await addReview({
+        const {message, data} = await addReview({
           rating,
           text,
           product: productId,
         });
-        const { review, averageRating } = data;
+        const {review, averageRating} = data;
 
         setIsSubmitting(false);
         toast.success(message);
-        onNewRating({ review, averageRating });
+        onNewRating({review, averageRating});
       } catch (e) {
         const message =
           e.response?.data?.message ||
@@ -51,50 +51,59 @@ const ReviewModal = ({ onClose, onNewRating, productId }) => {
   );
 
   return (
-    <div className={ styles.modal }>
-      <div className={ styles.overlay }/>
-      <div className={ styles.content }>
-        <form className={ styles.form } onSubmit={ handleSubmit }>
+    <div className={styles.modal}>
+      <div className={styles.overlay} />
+      <div className={styles.content}>
+        <form
+          className={styles.form}
+          onSubmit={handleSubmit}
+          data-cy="review-form">
           <button
             type="button"
-            className={ styles.closeBtn }
-            onClick={ onClose }
-            disabled={ isSubmitting }>
-            <img className={ styles.closeIcon } src={ closeIcon } alt="close"/>
+            className={styles.closeBtn}
+            onClick={onClose}
+            disabled={isSubmitting}>
+            <img className={styles.closeIcon} src={closeIcon} alt="close" />
           </button>
-          <div className={ styles.group }>
+          <div className={styles.group}>
             <h1 className="title">What’s your rating?</h1>
           </div>
-          <div className={ styles.group }>
-            <label className={ styles.label } htmlFor="form__rating">
+          <div className={styles.group}>
+            <label className={styles.label} htmlFor="form__rating">
               Rating
             </label>
             <div className="flex">
               <Ratings
-                value={ rating }
-                onChange={ handleRatingsChange }
-                isActive={ true }
+                value={rating}
+                onChange={handleRatingsChange}
+                isActive={true}
               />
             </div>
-            { hasRatingError && (
-              <div className={ styles.error }>Please select a rating</div>
-            ) }
+            {hasRatingError && (
+              <div className={styles.error} data-cy="ratings-error">
+                Please select a rating
+              </div>
+            )}
           </div>
-          <div className={ styles.group }>
-            <label className={ styles.label } htmlFor="form__text">
+          <div className={styles.group}>
+            <label className={styles.label} htmlFor="form__text">
               Review
             </label>
             <textarea
               id="form__text"
-              className={ styles.textarea }
+              data-cy="review-form-text"
+              className={styles.textarea}
               placeholder="Start typing..."
               maxLength="50"
-              value={ text }
-              onChange={ (e) => setText(e.target.value) }
+              value={text}
+              onChange={(e) => setText(e.target.value)}
             />
           </div>
-          <PrimaryButton type="submit" disabled={ isSubmitting }>
-            { isSubmitting ? 'Submitting...' : 'Submit review' }
+          <PrimaryButton
+            type="submit"
+            disabled={isSubmitting}
+            data-cy="submit-review-button">
+            {isSubmitting ? 'Submitting...' : 'Submit review'}
           </PrimaryButton>
         </form>
       </div>
