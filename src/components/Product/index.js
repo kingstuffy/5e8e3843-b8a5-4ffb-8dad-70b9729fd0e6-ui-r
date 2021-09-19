@@ -20,7 +20,7 @@ const Product = ({product, onAddReview}) => {
             {product.averageRating}
           </div>
           <div>
-            <Ratings value={Math.round(product.averageRating)} />
+            <Ratings value={product.averageRating} />
           </div>
         </div>
         <PrimaryButton onClick={onAddReview}>Add review</PrimaryButton>

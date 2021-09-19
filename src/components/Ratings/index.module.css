@@ -11,6 +11,8 @@
 .row {
     overflow: hidden;
     height: 30px;
+    display: flex;
+    transition: width 0.2s;
 }
 
 .off {
@@ -34,6 +36,8 @@
     background-position: center;
     border: 0;
     background-color: transparent;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
 }
 
 .active .btn {

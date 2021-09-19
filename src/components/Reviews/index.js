@@ -13,7 +13,7 @@ const Reviews = ({reviews}) => {
             key={review.id}
             className={classnames(styles.item, 'flex items-center')}>
             <div className={styles.stars}>
-              <Ratings value={Math.round(review.rating)} />
+              <Ratings value={review.rating} />
             </div>
             <div className={classnames(styles.summary, 'flex items-center')}>
               <div className={styles.ratingNum}>{review.rating}</div>,
