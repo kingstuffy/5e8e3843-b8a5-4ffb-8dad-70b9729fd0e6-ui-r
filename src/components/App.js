@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { getDefaultProduct } from 'services/products';
 import Product from 'components/Product';
 import Reviews from 'components/Reviews';
@@ -21,6 +22,12 @@ const App = () => {
     loadData();
   }, []);
 
+  const handleNewRating = useCallback(({ review, averageRating }) => {
+    setReviews((reviews) => [review, ...reviews]);
+    setProduct((product) => ({ ...product, averageRating }));
+    setIsModalOpen(false);
+  }, []);
+
   return (
     <>
       { product ? (
@@ -37,7 +44,14 @@ const App = () => {
       ) : (
         <Loader/>
       ) }
-      { isModalOpen && <ReviewModal onClose={ () => setIsModalOpen(false) }/> }
+      { isModalOpen && (
+        <ReviewModal
+          onClose={ () => setIsModalOpen(false) }
+          onNewRating={ handleNewRating }
+          productId={ product.id }
+        />
+      ) }
+      <Toaster/>
     </>
   );
 };

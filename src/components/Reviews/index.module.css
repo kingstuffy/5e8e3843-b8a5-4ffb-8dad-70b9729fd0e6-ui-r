@@ -30,3 +30,14 @@
     color: #797874;
     margin-left: 5px;
 }
+
+@media only screen and (max-width: 768px) {
+    .item {
+        flex-wrap: wrap;
+    }
+
+    .stars {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
