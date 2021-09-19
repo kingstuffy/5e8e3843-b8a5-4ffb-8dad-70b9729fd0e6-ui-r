@@ -36,6 +36,7 @@ const ReviewModal = ({ onClose, onNewRating, productId }) => {
         });
         const { review, averageRating } = data;
 
+        setIsSubmitting(false);
         toast.success(message);
         onNewRating({ review, averageRating });
       } catch (e) {
@@ -43,11 +44,10 @@ const ReviewModal = ({ onClose, onNewRating, productId }) => {
           e.response?.data?.message ||
           'Unable to submit rating, please try again';
         toast.error(message);
-      } finally {
         setIsSubmitting(false);
       }
     },
-    [rating, text, onNewRating],
+    [rating, text, onNewRating, productId],
   );
 
   return (

@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { getDefaultProduct } from 'services/products';
+import { subscribeToNewReviews } from 'services/notifications';
+import notificationsConfig from 'config/notifications';
 import Product from 'components/Product';
 import Reviews from 'components/Reviews';
 import Loader from 'components/Loader';
@@ -12,15 +14,34 @@ const App = () => {
   const [reviews, setReviews] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState();
 
-  useEffect(() => {
-    const loadData = async () => {
-      const defaultProduct = await getDefaultProduct();
-      setProduct(defaultProduct);
-      setReviews(defaultProduct.reviews);
-    };
-
-    loadData();
+  const loadData = useCallback(async () => {
+    const defaultProduct = await getDefaultProduct();
+    setProduct(defaultProduct);
+    setReviews(defaultProduct.reviews);
   }, []);
+
+  useEffect(
+    () => {
+      loadData();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
+  useEffect(
+    () => {
+      const channel = subscribeToNewReviews();
+      channel.bind(notificationsConfig.newReview.event, () => {
+        loadData();
+      });
+
+      return () => {
+        channel.unbind(notificationsConfig.newReview.event);
+      };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   const handleNewRating = useCallback(({ review, averageRating }) => {
     setReviews((reviews) => [review, ...reviews]);
