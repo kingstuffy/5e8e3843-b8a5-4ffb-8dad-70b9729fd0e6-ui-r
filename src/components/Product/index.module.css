@@ -1,0 +1,19 @@
+.title {
+    margin-bottom: 45px;
+}
+
+.avgRating {
+    margin-right: 24px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .details {
+        flex-wrap: wrap;
+    }
+
+    .ratings {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

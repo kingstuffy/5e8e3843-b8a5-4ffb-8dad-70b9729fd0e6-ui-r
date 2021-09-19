@@ -1,0 +1,41 @@
+.ratings {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+}
+
+.active {
+    cursor: pointer;
+}
+
+.row {
+    overflow: hidden;
+    height: 30px;
+}
+
+.off {
+    position: relative;
+}
+
+.on {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 0;
+}
+
+
+.btn {
+    width: 30px;
+    height: 30px;
+    appearance: none;
+    background-size: contain;
+    background-position: center;
+    border: 0;
+    background-color: transparent;
+}
+
+.active .btn {
+    cursor: pointer;
+}
