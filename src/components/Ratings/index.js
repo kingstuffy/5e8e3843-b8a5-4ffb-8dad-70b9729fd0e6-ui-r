@@ -18,7 +18,6 @@ const RatingButton = ({
   bgIcon,
   isActive,
   onMouseOver,
-  onMouseOut,
   onClick,
 }) => {
   const handleMouseMove = useMemo(
@@ -43,7 +42,6 @@ const RatingButton = ({
       key={rating}
       type="button"
       className={styles.btn}
-      title={rating}
       onClick={isActive ? handleClick : null}
       onMouseMove={isActive ? handleMouseMove : null}
       style={{backgroundImage: `url(${bgIcon})`}}
